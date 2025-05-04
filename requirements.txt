@@ -5,3 +5,4 @@ python-multipart
 openpyxl
 requests
 python-dateutil
+cryptography
