@@ -1,5 +1,7 @@
 fastapi
 uvicorn
 pandas
-openpyxl
 python-multipart
+openpyxl
+requests
+python-dateutil
