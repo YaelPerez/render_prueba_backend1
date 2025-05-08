@@ -41,27 +41,29 @@ async def procesar_excel(
             "direccion", "coloniaPoblacion", "delegacionMunicipio",
             "ciudad", "estado", "CP"
         ]
-        
+
         # Leer solo los encabezados
         df_temp = pd.read_excel(excel_file, nrows=0)
-        
+
         # Verificar columnas faltantes
         missing_columns = [col for col in expected_columns if col not in df_temp.columns]
-        
+
         # Verificar columnas extra
         extra_columns = [col for col in df_temp.columns if col not in expected_columns]
-        
+
         # Si faltan columnas → detener proceso
         if missing_columns:
             error_msg = f"❌ Error en columnas: Faltan estas columnas → {', '.join(missing_columns)}. Asegúrate de usar la nomenclatura correcta."
             logger.error(error_msg)
             return {"error": error_msg}
-        
+
         # Si hay columnas extra → detener proceso
         if extra_columns:
             error_msg = f"❌ Error en columnas: Se encontraron columnas inesperadas → {', '.join(extra_columns)}. El archivo debe tener exactamente estas columnas: {', '.join(expected_columns)}."
             logger.error(error_msg)
             return {"error": error_msg}
+        
+        logger.info("Columnas validadas correctamente")
 
         # Leer Excel
         df_solicitud = pd.read_excel(excel_file, dtype={'CP': str})
